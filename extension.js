@@ -28,6 +28,7 @@ function activate(context) {
 	});
 	context.subscriptions.push(editVocabularyCommand);
 
+	// Read the vocabulary file
 	let vocabulary = {};
 	try {
 		vocabulary = JSON.parse(fs.readFileSync(vocabularyFilePath, 'utf8'));
@@ -38,37 +39,28 @@ function activate(context) {
 				jumpToFile(vocabularyFilePath);
 			}
 		});
-		console.error(error);
 		return;
 	}
 
 	// Register the completion providers
 	const provider = vscode.languages.registerCompletionItemProvider('javascript', {
-		provideCompletionItems(document, position) {
-			const lineText = document.lineAt(position).text;
-			const linePrefix = lineText.substr(0, position.character);
+		provideCompletionItems() {
 			const ret = [];
 			for (let type in vocabulary) {
 				let map = vocabulary[type];
 				for (let namespace in map) {
-					if (linePrefix.endsWith(namespace + ':')) {
-						// If the line ends with "#minecraft:", skip "minecraft:" completions
-						if (!namespace.startsWith("#") && linePrefix.endsWith("#" + namespace + ':')) 
-							continue;
-						let candidates = map[namespace].map(id => {
-							const completion = new vscode.CompletionItem(namespace + ':' + id, vscode.CompletionItemKind.Text);
-							completion.insertText = id;
-							completion.detail = type;
-							return completion;
-						});
-						ret.push(...candidates);
-						break;
-					}
+					// If the line ends with "#minecraft:", skip "minecraft:" completions
+					let candidates = map[namespace].map(id => {
+						const completion = new vscode.CompletionItem(namespace + ':' + id, vscode.CompletionItemKind.Text);
+						completion.detail = type;
+						return completion;
+					});
+					ret.push(...candidates);
 				}
 			}
 			return ret;
 		}
-	}, ':'); // Completion trigger character
+	}, '\"'); // Completion trigger character
 	context.subscriptions.push(provider);
 }
 

@@ -29,7 +29,7 @@
     ],
     "commands": [
       {
-        "command": "kubejs-helper.editVocabulary",
+        "command": "kubejs-item-completion.editVocabulary",
         "title": "Edit Minecraft Vocabulary"
       }
     ]
