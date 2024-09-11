@@ -4,13 +4,17 @@
   "publisher": "leodreamer",
   "description": "Extension for block/item/fluid id completion in KubeJS",
   "version": "0.0.1",
+  "author": {
+    "name": "LeoDreamer2004"
+  },
+  "icon": "resources/img/icon.png",
   "engines": {
     "vscode": "^1.90.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/LeoDreamer2004/kubejs-item-completion"
-    },
+  },
   "categories": [
     "Language Packs"
   ],

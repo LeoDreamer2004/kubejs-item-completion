@@ -20,6 +20,6 @@ The default vocabulary contains all item/block/fluid identifiers and tags in for
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Initial release of the extension, with support for item/block/fluid identifiers and tags completion.

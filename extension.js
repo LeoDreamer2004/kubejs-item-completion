@@ -49,7 +49,6 @@ function activate(context) {
 			for (let type in vocabulary) {
 				let map = vocabulary[type];
 				for (let namespace in map) {
-					// If the line ends with "#minecraft:", skip "minecraft:" completions
 					let candidates = map[namespace].map(id => {
 						const completion = new vscode.CompletionItem(namespace + ':' + id, vscode.CompletionItemKind.Text);
 						completion.detail = type;
